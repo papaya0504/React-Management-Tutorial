@@ -33,7 +33,6 @@ class App extends Component {
   }
 
   componentDidMount(){
-    this.timer = setInterval(this.progress, 20);
     this.callApi()
       .then(res => this.setState({customers: res}))
       .catch(err => console.log(err));
@@ -43,11 +42,6 @@ class App extends Component {
     const response = await fetch('/api/customers');
     const body = await response.json();
     return body;
-  }
-
-  progress = () => {
-    const { completed } = this.state;
-    this.setState({ completed: completed >= 100 ? 0 : completed + 1});
   }
 
   render(){
@@ -71,7 +65,7 @@ class App extends Component {
             }) : 
             <TableRow>
               <TableCell colSpan="6" align="center">
-                <CircularProgress className={classes.progress} variant="determinate" value={this.state.completed}/>
+                <CircularProgress className={classes.progress} />
               </TableCell>
             </TableRow>}
           </TableBody>
